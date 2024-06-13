@@ -1,5 +1,6 @@
 package com.example.kmmtramites
 
+import com.example.kmmtramites.domain.model.Photo
 import org.koin.core.module.Module
 
 interface Platform {
@@ -7,5 +8,4 @@ interface Platform {
 }
 
 expect fun getPlatform(): Platform
-
 

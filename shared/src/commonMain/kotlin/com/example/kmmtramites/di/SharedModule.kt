@@ -1,17 +1,22 @@
 package com.example.kmmtramites.di
 
+import com.example.kmmtramites.data.remote.DataSource
+import com.example.kmmtramites.data.remote.KtorApi
+import com.example.kmmtramites.data.remote.PhotosService
+import com.example.kmmtramites.data.repository.PhotosRepositoryImp
+import com.example.kmmtramites.domain.repository.PhotosRepository
+import com.example.kmmtramites.domain.usecase.GetPhotosUseCase
 import org.koin.dsl.module
 
 private val dataModule = module {
-    //factory { RemoteDataSource(get(), get()) }
-    //factory { MovieService() }
+    single{ PhotosService() }
+    single { DataSource(get()) }
+    single<PhotosRepository> { PhotosRepositoryImp(get()) }
 }
 
 
 private val domainModule = module {
-    //single<MovieRepository> { MovieRepositoryImpl(get()) }
-    //factory { GetMoviesUseCase() }
-    //factory { GetMovieUseCase() }
+    single {GetPhotosUseCase(get()) }
 }
 
 private val sharedModules = listOf(domainModule, dataModule)

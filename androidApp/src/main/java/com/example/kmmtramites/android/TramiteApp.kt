@@ -14,8 +14,7 @@ class TramiteApp:Application() {
 
         startKoin{
             androidContext(this@TramiteApp)
-            androidLogger()
-            modules(getSharedModules() + androidModule)
+            modules(androidModule + getSharedModules())
         }
     }
 }

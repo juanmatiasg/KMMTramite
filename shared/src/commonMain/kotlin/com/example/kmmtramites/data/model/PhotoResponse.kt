@@ -1,9 +1,9 @@
-package com.example.kmmtramites.domain.model
+package com.example.kmmtramites.data.model
 
 import kotlinx.serialization.Serializable
 
-
-data class Photo (
+@Serializable
+data class PhotoResponse(
     val albumId: Int,
     val id: Int,
     val thumbnailUrl: String,
