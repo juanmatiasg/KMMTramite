@@ -1,6 +1,7 @@
 package com.example.kmmtramites.data.remote
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.http.path
@@ -11,11 +12,10 @@ import kotlinx.serialization.json.Json
  abstract class KtorApi {
 
     private val BASE_URL = "https://jsonplaceholder.typicode.com/"
-    val client = HttpClient {
+    val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json {
-                ignoreUnknownKeys = true
-                useAlternativeNames = false
+                ignoreUnknownKeys = false
             })
         }
     }

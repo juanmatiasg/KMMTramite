@@ -19,7 +19,7 @@ class PhotoViewModel(private val useCase: GetPhotosUseCase):ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    fun fetchPhotos() {
+    suspend fun fetchPhotos() {
         viewModelScope.launch {
             _isLoading.value = true
             _error.value = null

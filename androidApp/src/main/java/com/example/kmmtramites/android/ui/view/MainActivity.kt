@@ -1,6 +1,7 @@
 package com.example.kmmtramites.android.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -55,23 +57,19 @@ fun PhotosScreen(viewModel: PhotoViewModel = koinViewModel()) {
     val error = viewModel.error.collectAsState()
     val isLoading  = viewModel.isLoading.collectAsState().value
 
-    when {
-        isLoading -> {
-            CenteredCircularProgressIndicator()
-        }
-        error != null -> {
-            Text("Error: $error")
-        }
-        else -> {
-            // Mostrar la lista de fotos
-            PhotoList(photos.value)
+    if(isLoading){
+        CenteredCircularProgressIndicator()
 
-        }
+    }
+    else{
+        PhotoList(photos.value)
+
     }
 
     LaunchedEffect(Unit){
         viewModel.fetchPhotos()
     }
+
 }
 
 @Composable
@@ -96,8 +94,8 @@ fun PhotoCard(photo: Photo) {
                 .padding(16.dp)
         ) {
             Image(
-                painter = rememberAsyncImagePainter(model = photo.url),
-                contentDescription = photo.title,
+                painter = rememberAsyncImagePainter(model = photo.thumbnailUrl ?:""),
+                contentDescription = photo.title?:"",
                 modifier = Modifier
                     .height(180.dp)
                     .fillMaxWidth(),
@@ -105,12 +103,12 @@ fun PhotoCard(photo: Photo) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = photo.title,
+                text = photo.title?:"",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = photo.albumId.toString(),
+                text = photo.albumId.toString()?:"",
                 style = MaterialTheme.typography.bodyMedium
             )
         }

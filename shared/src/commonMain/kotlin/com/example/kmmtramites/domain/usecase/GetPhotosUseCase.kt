@@ -6,7 +6,6 @@ import org.koin.core.component.KoinComponent
 
   class GetPhotosUseCase(private val photosRepository: PhotosRepository) {
 
-
     suspend operator fun invoke(): List<Photo> {
         return photosRepository.getPhotos()
     }
