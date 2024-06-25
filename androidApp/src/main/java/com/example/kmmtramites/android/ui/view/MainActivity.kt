@@ -1,7 +1,6 @@
 package com.example.kmmtramites.android.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -18,7 +17,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.kmmtramites.android.ui.viewmodel.PhotoViewModel
-import com.example.kmmtramites.domain.model.Photo
+import com.example.kmmtramites.domain.model.Tramite
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -53,27 +51,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun PhotosScreen(viewModel: PhotoViewModel = koinViewModel()) {
-    val photos  =  viewModel.photos.collectAsState()
-    val error = viewModel.error.collectAsState()
-    val isLoading  = viewModel.isLoading.collectAsState().value
+    val photos = viewModel.photos.collectAsState()
+    val isLoading = viewModel.isLoading.collectAsState().value
 
-    if(isLoading){
+
+    if (isLoading) {
         CenteredCircularProgressIndicator()
-
-    }
-    else{
+    } else {
         PhotoList(photos.value)
-
     }
 
-    LaunchedEffect(Unit){
+
+    DisposableEffect(Unit) {
         viewModel.fetchPhotos()
+        onDispose {  }
     }
-
 }
-
 @Composable
-fun PhotoList(photos: List<Photo>) {
+fun PhotoList(photos: List<Tramite>) {
     LazyColumn {
         items(photos) { photo ->
             PhotoCard(photo)
@@ -82,7 +77,7 @@ fun PhotoList(photos: List<Photo>) {
 }
 
 @Composable
-fun PhotoCard(photo: Photo) {
+fun PhotoCard(photo: Tramite) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -93,22 +88,34 @@ fun PhotoCard(photo: Photo) {
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(model = photo.thumbnailUrl ?:""),
-                contentDescription = photo.title?:"",
-                modifier = Modifier
-                    .height(180.dp)
-                    .fillMaxWidth(),
-                contentScale = ContentScale.Crop
+            Text(
+                text = photo.numero?:"",
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = photo.title?:"",
+                text = photo.descripcion?:"",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = photo.albumId.toString()?:"",
+                text = photo.destinoActual.toString()?:"",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = photo.fechaInicioTramite.toString()?:"",
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = photo.fechaDestinoActual.toString()?:"",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = photo.tieneVista.toString()?:"",
                 style = MaterialTheme.typography.bodyMedium
             )
         }

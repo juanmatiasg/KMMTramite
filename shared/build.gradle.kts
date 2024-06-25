@@ -28,8 +28,9 @@ kotlin {
     }
 
     sourceSets {
-        var ktor_version="2.3.11"
-        var koin_version ="3.4.0"
+        val ktor_version="2.3.11"
+        val koin_version ="3.4.0"
+
         commonMain.dependencies {
 
             //Ktor
@@ -37,6 +38,10 @@ kotlin {
             implementation("io.ktor:ktor-client-cio:$ktor_version")
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
             implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+            implementation("io.ktor:ktor-client-logging:$ktor_version")
+
+            //Napier
+            implementation("io.github.aakira:napier:2.7.1")
 
             //Dependency injection
             implementation("io.insert-koin:koin-core:${koin_version}")

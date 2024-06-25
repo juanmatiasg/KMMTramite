@@ -1,6 +1,7 @@
 package com.example.kmmtramites
 
-import com.example.kmmtramites.domain.model.Photo
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${android.os.Build.VERSION.SDK_INT}"
@@ -8,4 +9,6 @@ class AndroidPlatform : Platform {
 
 actual fun getPlatform(): Platform = AndroidPlatform()
 
-
+actual fun initLogger(){
+    Napier.base(DebugAntilog())
+}
