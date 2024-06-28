@@ -1,4 +1,4 @@
-package com.example.kmmtramites.android.ui.view
+package com.example.kmmtramites.android.ui.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,7 +22,7 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = Color(0xFFBB86FC),
+            primary = Color(0xFF3700B3),
             secondary = Color(0xFF03DAC5),
             tertiary = Color(0xFF3700B3)
         )

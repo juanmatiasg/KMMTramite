@@ -3,10 +3,7 @@ package com.example.kmmtramites.data.remote
 import com.example.kmmtramites.initLogger
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.ProxyBuilder
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.engine.cio.endpoint
-import io.ktor.client.engine.http
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -14,19 +11,19 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.accept
-import io.ktor.client.request.header
 import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
 import io.ktor.http.path
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
- abstract class KtorApi {
 
-     private val BASE_URL = "https://172.16.220.8:7044"
+abstract class KtorApi {
 
-    val client = HttpClient(CIO) {
+     private val BASE_URL = "http://10.0.2.2"
+
+
+     val client = HttpClient(CIO) {
 
         install(ContentNegotiation) {
             json(Json {
@@ -50,14 +47,17 @@ import kotlinx.serialization.json.Json
         }.also {
             initLogger()
         }
+
     }
 
     fun HttpRequestBuilder.pathUrl(path: String){
         url {
             takeFrom(BASE_URL)
             path(path)
+            accept(ContentType.Application.Json)
         }
     }
+
 
 
 }

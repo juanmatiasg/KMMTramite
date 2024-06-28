@@ -1,4 +1,6 @@
 package com.example.kmmtramites
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
@@ -10,3 +12,4 @@ actual fun getPlatform(): Platform = IOSPlatform()
 actual fun initLogger() {
     Napier.base(DebugAntilog())
 }
+

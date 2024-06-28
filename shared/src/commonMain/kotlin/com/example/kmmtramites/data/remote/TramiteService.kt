@@ -7,17 +7,26 @@ import io.github.aakira.napier.Napier
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.request.url
 
 class TramiteService : KtorApi() {
     suspend fun getAllTramite(correlativo: String): List<Tramite> {
         try {
             val response = client.get {
                 pathUrl("/api/Tramite/TramitesPorCorrelativo")
-                url {
-                    parameters.append("correlativo", correlativo)
-                }
+                parameter("correlativo", correlativo)
+
             }.body<TramiteResponse>()
+
+
+           val responseBody = client.get {
+                pathUrl("/api/Tramite/TramitesPorCorrelativo")
+                parameter("correlativo", correlativo)
+
+            }.body<String>()
+
+            println(responseBody)
+
+
             return response.data.map { it.toDomain() }
 
         } catch (e: Exception) {

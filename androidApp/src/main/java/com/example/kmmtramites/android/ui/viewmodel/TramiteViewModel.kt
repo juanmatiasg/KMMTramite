@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class PhotoViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
+class TramiteViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
     private val _photos = MutableStateFlow<List<Tramite>>(emptyList())
     val photos: StateFlow<List<Tramite>> = _photos
 
@@ -32,5 +32,4 @@ class PhotoViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
             }
         }
     }
-
 }

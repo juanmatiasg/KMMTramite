@@ -28,7 +28,7 @@ kotlin {
     }
 
     sourceSets {
-        val ktor_version="2.3.11"
+        val ktor_version="2.0.0"
         val koin_version ="3.4.0"
 
         commonMain.dependencies {
@@ -39,6 +39,7 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
             implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
             implementation("io.ktor:ktor-client-logging:$ktor_version")
+            implementation("io.ktor:ktor-client-okhttp:$ktor_version")
 
             //Napier
             implementation("io.github.aakira:napier:2.7.1")
@@ -54,6 +55,7 @@ kotlin {
 
         androidMain.dependencies {
             //KTOR
+            implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             implementation("io.ktor:ktor-client-android:$ktor_version")
             api("io.insert-koin:koin-android:$koin_version")
         }

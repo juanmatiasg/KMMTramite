@@ -1,33 +1,15 @@
-package com.example.kmmtramites.android.ui.view
+package com.example.kmmtramites.android.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import com.example.kmmtramites.android.ui.viewmodel.PhotoViewModel
-import com.example.kmmtramites.domain.model.Tramite
-import org.koin.androidx.compose.koinViewModel
+import androidx.navigation.compose.rememberNavController
+import com.example.kmmtramites.android.ui.navigation.NavGraph
+import com.example.kmmtramites.android.ui.themes.MyApplicationTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -40,8 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                    PhotosScreen()
+                    val navController = rememberNavController()
+                    NavGraph(navController = navController)
                 }
             }
         }
@@ -49,8 +31,8 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Composable
-fun PhotosScreen(viewModel: PhotoViewModel = koinViewModel()) {
+/*@Composable
+fun PhotosScreen(viewModel: TramiteViewModel = koinViewModel()) {
     val photos = viewModel.photos.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState().value
 
@@ -120,18 +102,5 @@ fun PhotoCard(photo: Tramite) {
             )
         }
     }
-}
-
-@Composable
-fun CenteredCircularProgressIndicator() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(50.dp), // Adjust size as needed
-            color = Color.Blue // Adjust color as needed
-        )
-    }
-}
+}*/
 

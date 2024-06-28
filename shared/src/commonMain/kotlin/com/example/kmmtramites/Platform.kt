@@ -1,6 +1,5 @@
 package com.example.kmmtramites
 
-
 interface Platform {
     val name: String
 }
@@ -8,4 +7,6 @@ interface Platform {
 expect fun getPlatform(): Platform
 
 expect fun initLogger()
+
+
 
