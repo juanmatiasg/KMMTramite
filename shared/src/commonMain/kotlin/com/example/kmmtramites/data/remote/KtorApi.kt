@@ -24,35 +24,6 @@ abstract class KtorApi {
 
     private val BASE_URL = "https://10.0.2.2:7044"
 
-
-    val client = HttpClient(CIO) {
-
-
-        install(WebSockets)
-
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-            })
-        }
-
-
-
-
-        install(Logging) {
-            level = LogLevel.ALL
-            logger = object : Logger {
-                override fun log(message: String) {
-                    Napier.v(tag = "HttpClient", message = message)
-                }
-            }
-            Logger
-        }.also {
-            initLogger()
-        }
-
-    }
-
     fun HttpRequestBuilder.pathUrl(path: String) {
         url {
             takeFrom(BASE_URL)
@@ -60,6 +31,5 @@ abstract class KtorApi {
             accept(ContentType.Application.Json)
         }
     }
-
 
 }

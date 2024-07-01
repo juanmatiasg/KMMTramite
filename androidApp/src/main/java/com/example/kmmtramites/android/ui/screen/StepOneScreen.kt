@@ -53,8 +53,6 @@ fun StepOneScreen(navController: NavController,itemId: String?) {
 @Composable
 fun SociedadesList(tramite: List<Tramite>,navController: NavController) {
     LazyColumn {
-
-
         items(tramite) { tramite ->
             SociedadeseCard(tramite,navController)
         }

@@ -36,7 +36,6 @@ import com.example.kmmtramites.android.R
 @Composable
 fun SearchComponent(onSearchClick: () -> Unit) {
 
-
     var text by remember { mutableStateOf("") }
     var selectedOption by remember { mutableStateOf(SearchOption.ByCorrelativeNumber) }
     val label = when (selectedOption) {
