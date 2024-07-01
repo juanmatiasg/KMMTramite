@@ -1,6 +1,5 @@
 package com.example.kmmtramites.android.ui.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -27,10 +25,8 @@ import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.domain.model.Tramite
 import org.koin.androidx.compose.koinViewModel
 
-
-
 @Composable
-fun StepOneScreen(navController: NavController,itemId: String?) {
+fun StepFourScreen(navController: NavController, itemId: String?) {
 
     val viewModel: TramiteViewModel = koinViewModel()
     val photos = viewModel.photos.collectAsState()
@@ -40,9 +36,9 @@ fun StepOneScreen(navController: NavController,itemId: String?) {
     if (isLoading) {
         CenteredCircularProgressIndicator()
     } else {
-        SociedadesList(photos.value,navController)
+        val tramite = Tramite("1","Vista","","","",false)
+        VieweCardFinal(tramite)
     }
-
 
     DisposableEffect(Unit) {
         viewModel.fetchPhotos()
@@ -50,26 +46,16 @@ fun StepOneScreen(navController: NavController,itemId: String?) {
     }
 }
 
-@Composable
-fun SociedadesList(tramite: List<Tramite>,navController: NavController) {
-    LazyColumn {
 
-
-        items(tramite) { tramite ->
-            SociedadeseCard(tramite,navController)
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SociedadeseCard(tramite: Tramite, navControler: NavController) {
+fun VieweCardFinal(tramite: Tramite) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = {navControler.navigate(Destinations.StepTwoScreen.route)}
     ) {
 
         Column(

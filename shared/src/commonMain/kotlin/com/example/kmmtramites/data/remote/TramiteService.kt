@@ -5,6 +5,7 @@ import com.example.kmmtramites.data.model.TramiteResponse
 import com.example.kmmtramites.domain.model.Tramite
 import io.github.aakira.napier.Napier
 import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
@@ -32,7 +33,11 @@ class TramiteService : KtorApi() {
         } catch (e: Exception) {
             Napier.e("Request failed with exception", e)
             throw e
-        } finally {
+        } catch (e: HttpRequestTimeoutException){
+            Napier.e("Request failed with HttpRequestTimeoutException", e)
+            throw e
+        }
+        finally {
             client.close()
         }
     }

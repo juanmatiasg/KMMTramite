@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kmmtramites.domain.model.Tramite
 import com.example.kmmtramites.domain.usecase.GetTramiteUseCase
+import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +21,7 @@ class TramiteViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
     val error: StateFlow<String?> = _error
 
      fun fetchPhotos() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
             _error.value = null
             try {

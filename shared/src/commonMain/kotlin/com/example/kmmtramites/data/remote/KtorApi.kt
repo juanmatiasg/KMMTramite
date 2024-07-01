@@ -9,9 +9,11 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.accept
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders.Connection
 import io.ktor.http.path
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
@@ -20,23 +22,24 @@ import kotlinx.serialization.json.Json
 
 abstract class KtorApi {
 
-     private val BASE_URL = "http://10.0.2.2"
+    private val BASE_URL = "https://10.0.2.2:7044"
 
 
-     val client = HttpClient(CIO) {
+    val client = HttpClient(CIO) {
+
+
+        install(WebSockets)
 
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
             })
         }
-        install(HttpTimeout) {
-            requestTimeoutMillis = 30000 // Adjust this value as needed
-            connectTimeoutMillis = 30000 // Adjust this value as needed
-            socketTimeoutMillis = 30000 // Adjust this value as needed
-        }
 
-        install(Logging){
+
+
+
+        install(Logging) {
             level = LogLevel.ALL
             logger = object : Logger {
                 override fun log(message: String) {
@@ -50,14 +53,13 @@ abstract class KtorApi {
 
     }
 
-    fun HttpRequestBuilder.pathUrl(path: String){
+    fun HttpRequestBuilder.pathUrl(path: String) {
         url {
             takeFrom(BASE_URL)
             path(path)
             accept(ContentType.Application.Json)
         }
     }
-
 
 
 }

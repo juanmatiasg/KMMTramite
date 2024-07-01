@@ -1,29 +1,44 @@
 package com.example.kmmtramites.android.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.kmmtramites.android.ui.components.CustomScaffold
+import com.example.kmmtramites.android.ui.components.CustomTopAppBar
+import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.navigation.NavGraph
 import com.example.kmmtramites.android.ui.themes.MyApplicationTheme
 
 
 class MainActivity : ComponentActivity() {
 
+
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
+            MyApplicationTheme(darkTheme = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavGraph(navController = navController)
+
+                    CustomScaffold(navController = navController) {
+                        NavGraph(navController = navController)
+                    }
+
                 }
             }
         }
@@ -31,76 +46,6 @@ class MainActivity : ComponentActivity() {
 }
 
 
-/*@Composable
-fun PhotosScreen(viewModel: TramiteViewModel = koinViewModel()) {
-    val photos = viewModel.photos.collectAsState()
-    val isLoading = viewModel.isLoading.collectAsState().value
 
 
-    if (isLoading) {
-        CenteredCircularProgressIndicator()
-    } else {
-        PhotoList(photos.value)
-    }
-
-
-    DisposableEffect(Unit) {
-        viewModel.fetchPhotos()
-        onDispose {  }
-    }
-}
-@Composable
-fun PhotoList(photos: List<Tramite>) {
-    LazyColumn {
-        items(photos) { photo ->
-            PhotoCard(photo)
-        }
-    }
-}
-
-@Composable
-fun PhotoCard(photo: Tramite) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            Text(
-                text = photo.numero?:"",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = photo.descripcion?:"",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = photo.destinoActual.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = photo.fechaInicioTramite.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = photo.fechaDestinoActual.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = photo.tieneVista.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-}*/
 
