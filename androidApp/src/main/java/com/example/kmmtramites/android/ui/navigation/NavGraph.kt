@@ -11,31 +11,38 @@ import com.example.kmmtramites.android.ui.screen.StepFourScreen
 import com.example.kmmtramites.android.ui.screen.StepOneScreen
 import com.example.kmmtramites.android.ui.screen.StepThreeScreen
 import com.example.kmmtramites.android.ui.screen.StepTwoScreen
+import com.example.kmmtramites.domain.model.View
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 @Composable
 fun NavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Destinations.Home.route) {
-        composable(route = Destinations.Home.route) {
-                HomeScreen(navController)
+    NavHost(navController = navController, startDestination = Destinations.HomeScreen.route) {
+        composable(route = Destinations.HomeScreen.route) {
+            HomeScreen(navController)
         }
+
         composable(route = Destinations.StepOneScreen.route) { backStackEntry ->
-                val itemId = backStackEntry.arguments?.getString("itemId")
-                StepOneScreen(navController, itemId)
+            val numero = backStackEntry.arguments?.getString("numero")
+            val searchOption = backStackEntry.arguments?.getString("searchOption")
+            StepOneScreen(navController, numero,searchOption!!)
         }
 
         composable(route = Destinations.StepTwoScreen.route) { backStackEntry ->
-                val itemId = backStackEntry.arguments?.getString("itemId")
-                StepTwoScreen(navController, itemId)
+            val numero = backStackEntry.arguments?.getString("numero")
+            StepTwoScreen(navController, numero)
         }
 
         composable(route = Destinations.StepThreeScreen.route) { backStackEntry ->
-                val itemId = backStackEntry.arguments?.getString("itemId")
-                StepThreeScreen(navController, itemId)
+            val correlativo = backStackEntry.arguments?.getString("correlativo")
+            val tramite = backStackEntry.arguments?.getString("tramite")
+
+            StepThreeScreen(correlativo = correlativo!!, tramite = tramite!!)
         }
 
         composable(route = Destinations.StepFourScreen.route) { backStackEntry ->
-                val itemId = backStackEntry.arguments?.getString("itemId")
-                StepFourScreen(navController, itemId)
+            val itemId = backStackEntry.arguments?.getString("itemId")
+            StepFourScreen(navController, itemId)
         }
     }
 }

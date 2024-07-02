@@ -46,7 +46,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
     var lifecycle_version = "2.8.2"
-    var arch_version = "2.2.0"
+
 
     // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
@@ -63,5 +63,8 @@ dependencies {
 
     implementation("io.insert-koin:koin-android:3.3.2")
     implementation("io.insert-koin:koin-androidx-compose:3.4.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+
 
 }

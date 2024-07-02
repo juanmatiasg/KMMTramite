@@ -29,10 +29,10 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val showContent = currentRoute != Destinations.Home.route
+    val showContent = currentRoute != Destinations.HomeScreen.route
 
      val title = when (currentRoute) {
-        Destinations.Home.route -> ""
+        Destinations.HomeScreen.route -> ""
         Destinations.StepOneScreen.route -> "Listado de Sociedades"
         Destinations.StepTwoScreen.route -> "Listado de Trámites"
         Destinations.StepThreeScreen.route -> "Listado de Vistas"

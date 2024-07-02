@@ -23,14 +23,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
 
 
 @SuppressLint("ResourceAsColor")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomHomeScreen(
-    onButtonClick: () -> Unit
+    navController: NavController,
 ) {
 
     val darkBlueColor = colorResource(id = R.color.DarkBlue) // Accessing the color from resources
@@ -80,7 +80,7 @@ fun CustomHomeScreen(
 
         Spacer(modifier = Modifier.padding(16.dp))
 
-        SearchComponent(onButtonClick)
+        SearchComponent(navController)
 
     }
 

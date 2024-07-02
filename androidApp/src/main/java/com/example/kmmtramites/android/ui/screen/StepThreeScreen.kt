@@ -1,6 +1,7 @@
 package com.example.kmmtramites.android.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,89 +23,113 @@ import androidx.navigation.NavController
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
 import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
+import com.example.kmmtramites.android.ui.viewmodel.ViewViewModel
 import com.example.kmmtramites.domain.model.Tramite
+import com.example.kmmtramites.domain.model.View
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun StepThreeScreen(navController: NavController, itemId: String?) {
+fun StepThreeScreen(correlativo:String,tramite:String) {
 
-    val viewModel: TramiteViewModel = koinViewModel()
-    val photos = viewModel.photos.collectAsState()
+    val viewModel: ViewViewModel = koinViewModel()
+    val viewState = viewModel.view.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState().value
 
 
     if (isLoading) {
         CenteredCircularProgressIndicator()
     } else {
-        ViewsList(photos.value,navController)
+        ViewsList(viewState.value)
     }
 
 
     DisposableEffect(Unit) {
-        viewModel.fetchPhotos()
+        viewModel.fetchViews(correlativo,tramite)
         onDispose {  }
     }
 }
 
 @Composable
-fun ViewsList(tramite: List<Tramite>, navController: NavController) {
+fun ViewsList(view: List<View>) {
     LazyColumn {
-        var unico:List<Tramite> = listOf<Tramite>(
-            Tramite("2","Listado de Vista","","","",true),
-            Tramite("3","saracatunga","","","",true)
-        )
 
-        items(unico) { tramite ->
-            VieweCard(tramite,navController)
+        items(view) { view ->
+            ViewCard(view)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VieweCard(tramite: Tramite, navControler: NavController) {
+fun ViewCard(view: View) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = {navControler.navigate(Destinations.StepFourScreen.route)}
     ) {
 
         Column(
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            Text(
-                text = tramite.numero?:"",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = tramite.descripcion?:"",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = tramite.destinoActual.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = tramite.fechaInicioTramite.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
 
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = tramite.fechaDestinoActual.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = tramite.tieneVista.toString()?:"",
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Row {
+                Text(
+                    text = "Inicio de Trámite: ",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                )
+
+                Text(
+                    text = view.inicioTramite!!,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+
+            Row {
+                Text(
+                    text = "Inicio de Vista: ",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                )
+
+                Text(
+                    text = view.inicioVista!!,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row {
+                Text(
+                    text = "Inspector: ",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                )
+
+                Text(
+                    text = view.inspector!!,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Row {
+                Text(
+                    text = "Detalle: ",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                )
+
+                Text(
+                    text = view.detalle!!,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+
         }
     }
 }

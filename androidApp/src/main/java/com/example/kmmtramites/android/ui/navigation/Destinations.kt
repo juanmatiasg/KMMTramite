@@ -1,20 +1,27 @@
 package com.example.kmmtramites.android.ui.navigation
 
+import com.example.kmmtramites.android.ui.components.SearchOption
+
 sealed class Destinations(val route: String) {
-    object Home : Destinations("home")
+    //Home Input
+    object HomeScreen : Destinations("homeScreen"){}
 
-    object StepOneScreen : Destinations("stepOneScreen/{itemId}") {
-        fun createRoute(itemId: String) = "stepOneScreen/$itemId"
+    //Listado de Sociedades
+    object StepOneScreen : Destinations("stepOneScreen/{numero}/{searchOption}") {
+        fun createRoute(numero: String, searchOption: SearchOption) = "stepOneScreen/$numero/${searchOption}"
     }
 
-    object StepTwoScreen : Destinations("stepTwoScreen/{itemId}") {
-        fun createRoute(itemId: String) = "stepTwoScreen/$itemId"
+    //Listado de Tramites
+    object StepTwoScreen : Destinations("stepTwoScreen/{numero}") {
+        fun createRoute(numero: String) = "stepTwoScreen/$numero"
     }
 
-    object StepThreeScreen : Destinations("stepThreeScreen/{itemId}") {
-        fun createRoute(itemId: String) = "stepThreeScreen/$itemId"
+    //Listado de Vista
+    object StepThreeScreen : Destinations("stepThreeScreen/{tramite}/{correlativo}") {
+        fun createRoute(tramite: String, correlativo: String) = "stepThreeScreen/$tramite/$correlativo"
     }
 
+    //Vista
     object StepFourScreen : Destinations("stepFourScreen/{itemId}") {
         fun createRoute(itemId: String) = "stepFourScreen/$itemId"
     }

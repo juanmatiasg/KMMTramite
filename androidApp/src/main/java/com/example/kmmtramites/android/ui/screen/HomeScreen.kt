@@ -13,15 +13,7 @@ import com.example.kmmtramites.android.ui.navigation.Destinations
 
 
 @Composable
-fun HomeScreen(navController: NavController){
-   CustomHomeScreen(onButtonClick = {navController.navigate(Destinations.StepOneScreen.route)})
+fun HomeScreen(navController: NavController,){
+   CustomHomeScreen(navController = navController)
 }
 
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun DefaultPreview(){
-    val navController = rememberNavController()
-    CustomHomeScreen(onButtonClick = {navController.navigate(Destinations.StepOneScreen.route)})
-
-}

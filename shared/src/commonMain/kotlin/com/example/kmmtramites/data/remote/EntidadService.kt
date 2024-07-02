@@ -23,13 +23,6 @@ class EntidadService:KtorApi() {
             }.body<EntidadResponse>()
 
 
-            val responseBody = client.get {
-                pathUrl("/api/Tramite/TramitesPorCorrelativo")
-                parameter("correlativo", correlativo)
-
-            }.body<String>()
-            
-
             return response.data.toDomain()
 
         } catch (e: Exception) {

@@ -31,13 +31,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
+import com.example.kmmtramites.android.ui.navigation.Destinations
 
 @Composable
-fun SearchComponent(onSearchClick: () -> Unit) {
+fun SearchComponent(navController: NavController) {
 
-    var text by remember { mutableStateOf("") }
+    var textInput by remember { mutableStateOf("") }
     var selectedOption by remember { mutableStateOf(SearchOption.ByCorrelativeNumber) }
+
     val label = when (selectedOption) {
         SearchOption.ByCorrelativeNumber -> "Nro Correlativo"
         SearchOption.ByTramNumber -> "Nro Tramite"
@@ -52,8 +55,8 @@ fun SearchComponent(onSearchClick: () -> Unit) {
     ) {
         val containerColor = colorResource(id = R.color.White)
         OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
+            value = textInput,
+            onValueChange = { textInput = it },
             label = { Text(label) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,12 +85,12 @@ fun SearchComponent(onSearchClick: () -> Unit) {
         ) {
             RadioButton(
                 selected = selectedOption == SearchOption.ByCorrelativeNumber,
-                onClick = { selectedOption = SearchOption.ByCorrelativeNumber; text = "" }
+                onClick = { selectedOption = SearchOption.ByCorrelativeNumber; textInput = "" }
             )
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = "Por nro correlativo",
+                text = "Por Nro correlativo",
                 fontWeight = FontWeight.Bold,
                 color = colorResource(id = R.color.White)
                 , textAlign = TextAlign.Center
@@ -96,7 +99,7 @@ fun SearchComponent(onSearchClick: () -> Unit) {
 
             RadioButton(
                 selected = selectedOption == SearchOption.ByTramNumber,
-                onClick = { selectedOption = SearchOption.ByTramNumber; text = "" },
+                onClick = { selectedOption = SearchOption.ByTramNumber; textInput = "" },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = colorResource(id = R.color.White),
                     unselectedColor = colorResource(id = R.color.White)
@@ -104,14 +107,13 @@ fun SearchComponent(onSearchClick: () -> Unit) {
             )
 
             Text(
-                text = "Por nro trámite",
+                text = "Por Nro trámite",
                 fontWeight = FontWeight.Bold,
                 color = colorResource(id = R.color.White),
                 textAlign = TextAlign.Center
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -119,13 +121,7 @@ fun SearchComponent(onSearchClick: () -> Unit) {
         ) {
             Button(
                 onClick = {
-                    // Aquí puedes realizar la acción según la opción seleccionada
-                    if (selectedOption == SearchOption.ByCorrelativeNumber) {
-                        text = "Por Nro Correlativo"
-                    } else {
-                        text = "Por Nro Trámite"
-                    }
-                    onSearchClick()
+                    navController.navigate(Destinations.StepOneScreen.createRoute(textInput,selectedOption))
                 }
 
             ) {

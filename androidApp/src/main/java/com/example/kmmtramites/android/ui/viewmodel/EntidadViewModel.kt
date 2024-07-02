@@ -21,12 +21,12 @@ class EntidadViewModel(private val useCase: GetEntidadUseCase): ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    fun fetchEntidadForCorrelativo() {
+    fun fetchEntidadForCorrelativo(numeroCorrelativo:String) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
             _error.value = null
             try {
-                _entidad.value = useCase.getEntidadForCorrelativo("352039")
+                _entidad.value = useCase.getEntidadForCorrelativo(numeroCorrelativo)
             } catch (e: Exception) {
                 _error.value = e.message
             } finally {
@@ -35,12 +35,12 @@ class EntidadViewModel(private val useCase: GetEntidadUseCase): ViewModel() {
         }
     }
 
-    fun fetchEntidadForTramite() {
+    fun fetchEntidadForTramite(tramite:String) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
             _error.value = null
             try {
-                _entidad.value = useCase.getEntidadForTramite("352039")
+                _entidad.value = useCase.getEntidadForTramite(tramite)
             } catch (e: Exception) {
                 _error.value = e.message
             } finally {
