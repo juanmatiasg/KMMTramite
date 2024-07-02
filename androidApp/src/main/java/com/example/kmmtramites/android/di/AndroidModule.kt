@@ -1,5 +1,6 @@
 package com.example.kmmtramites.android.di
 
+import ConnectivityViewModel
 import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
 import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.android.ui.viewmodel.ViewViewModel
@@ -11,6 +12,7 @@ var androidModule = module {
     viewModel { TramiteViewModel(get()) }
     viewModel { EntidadViewModel(get()) }
     viewModel { ViewViewModel(get()) }
+    viewModel{ConnectivityViewModel(get())}
 }
 
 

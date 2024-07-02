@@ -27,6 +27,8 @@ var date: String = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Da
 @Composable
 fun CustomScaffold(navController: NavController, content: @Composable () -> Unit) {
 
+    ConnectivityStatus()
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val showContent = currentRoute != Destinations.HomeScreen.route
