@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class TramiteViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
+
     private val _tramites = MutableStateFlow<List<Tramite>>(emptyList())
     val tramites: StateFlow<List<Tramite>> = _tramites
 
@@ -32,5 +33,9 @@ class TramiteViewModel(private val useCase: GetTramiteUseCase):ViewModel() {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun clearError() {
+        _error.value = null
     }
 }

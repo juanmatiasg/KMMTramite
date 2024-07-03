@@ -16,13 +16,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
+import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
+import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
 import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.domain.model.Tramite
 import com.example.kmmtramites.domain.model.View
@@ -36,15 +44,30 @@ fun StepTwoScreen(navController: NavController, numero: String?) {
     val viewModel: TramiteViewModel = koinViewModel()
     val tramites = viewModel.tramites.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState().value
+    val error = viewModel.error.collectAsState()
+
+    // Mostrar el ErrorDialog cuando hay un error
+    var showDialog by remember { mutableStateOf(false) }
+
+
+    ErrorDialog(showDialog = showDialog, errorMessage = "La sociedad seleccionada no tiene trámites." ?: "") {
+        viewModel.clearError()
+        navController.popBackStack()  // Volver a la pantalla anterior
+    }
 
 
     if (isLoading) {
         CenteredCircularProgressIndicator()
     } else {
-        TramiteList(tramites.value,numero!!,navController)
+        if (tramites.value.isEmpty() && error.value!=null) {
+            showDialog = true
+        } else {
+            showDialog = false
+            tramites.value?.let {
+                TramiteList(tramites.value,numero!!,navController)
+            }
+        }
     }
-
-
     DisposableEffect(Unit) {
         viewModel.fetchTramites(numero!!)
         onDispose {  }
@@ -158,14 +181,14 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
                     Text(
                         text = "Disponible" ?: "",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Green
+                        color = colorResource(id = R.color.Green)
                     )
                 }
                 else {
                     Text(
                         text = "No Disponible" ?: "",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Red
+                        color = colorResource(id = R.color.Red)
                     )
                 }
             }

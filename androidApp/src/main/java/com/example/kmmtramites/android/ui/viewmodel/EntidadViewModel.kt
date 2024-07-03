@@ -48,4 +48,8 @@ class EntidadViewModel(private val useCase: GetEntidadUseCase): ViewModel() {
             }
         }
     }
+    fun clearError() {
+        _error.value = null
+    }
+
 }

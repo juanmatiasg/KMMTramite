@@ -1,3 +1,8 @@
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
+    <!-- Definición de color -->
+    <color name="background_color">#FFFFFF</color> <!-- Cambia el valor a tu color de fondo deseado -->
+
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/background_color</item> <!-- Aplica el fondo de la ventana -->
+    </style>
 </resources>

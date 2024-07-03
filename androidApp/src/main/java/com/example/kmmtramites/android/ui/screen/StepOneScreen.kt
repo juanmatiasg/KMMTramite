@@ -23,43 +23,61 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
-import com.example.kmmtramites.android.ui.components.SearchOption
+import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
-import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.domain.model.Entidad
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun StepOneScreen(navController: NavController,numero: String?,searchOption: String) {
+fun StepOneScreen(navController: NavController, numero: String?, searchOption: String) {
 
     val viewModel: EntidadViewModel = koinViewModel()
     val entidad = viewModel.entidad.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState().value
+    val error = viewModel.error.collectAsState()
+
+    // Mostrar el ErrorDialog cuando hay un error
+    var showDialog by remember { mutableStateOf(false) }
+
+
+    ErrorDialog(showDialog = showDialog, errorMessage = "Entidad no encontrada" ?: "") {
+        viewModel.clearError()
+        navController.popBackStack()  // Volver a la pantalla anterior
+    }
 
 
     if (isLoading) {
         CenteredCircularProgressIndicator()
     } else {
-        entidad.value?.let { Sociedades(it,navController) }
+        if (entidad.value == null && error.value!=null) {
+            showDialog = true
+        } else {
+            showDialog = false
+            entidad.value?.let {
+                Sociedades(it, navController)
+            }
+
+
+        }
     }
 
 
     DisposableEffect(Unit) {
-        if(searchOption == "ByCorrelativeNumber" ) {
+
+        if (searchOption == "ByCorrelativeNumber") {
             viewModel.fetchEntidadForCorrelativo(numero!!)
-        }
-        else{
+        } else {
             viewModel.fetchEntidadForTramite(numero!!)
         }
-        onDispose {  }
+        onDispose { }
     }
 }
 
 @Composable
 fun Sociedades(entidad: Entidad, navController: NavController) {
-    SociedadeseCard(entidad,navController)
+    SociedadeseCard(entidad, navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,7 +89,7 @@ fun SociedadeseCard(entidad: Entidad, navControler: NavController) {
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = {navControler.navigate(Destinations.StepTwoScreen.createRoute(entidad.correlativo))}
+        onClick = { navControler.navigate(Destinations.StepTwoScreen.createRoute(entidad.correlativo)) }
     ) {
 
         Column(

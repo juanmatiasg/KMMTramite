@@ -1,6 +1,5 @@
 package com.example.kmmtramites.android.ui.navigation
-
-import com.example.kmmtramites.android.ui.components.SearchOption
+import SearchOption
 
 sealed class Destinations(val route: String) {
     //Home Input

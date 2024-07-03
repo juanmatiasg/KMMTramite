@@ -32,4 +32,8 @@ class ViewViewModel(private val useCase:GetViewUseCase): ViewModel() {
             }
         }
     }
+
+    fun clearError() {
+        _error.value = null
+    }
 }
