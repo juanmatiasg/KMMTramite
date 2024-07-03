@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
 import com.example.kmmtramites.android.ui.components.ErrorDialog
+import com.example.kmmtramites.android.ui.components.WarningDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
 import com.example.kmmtramites.domain.model.Entidad
@@ -42,7 +43,7 @@ fun StepOneScreen(navController: NavController, numero: String?, searchOption: S
     var showDialog by remember { mutableStateOf(false) }
 
 
-    ErrorDialog(showDialog = showDialog, errorMessage = "Entidad no encontrada" ?: "") {
+    WarningDialog(showDialog = showDialog, errorMessage = "Entidad no encontrada" ?: "") {
         viewModel.clearError()
         navController.popBackStack()  // Volver a la pantalla anterior
     }

@@ -23,6 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
 
@@ -46,7 +47,14 @@ fun CustomHomeScreen(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
+            Text(text="Inspección General de Justicia", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 20.sp)
+        }
+        Spacer(modifier = Modifier.padding(16.dp))
 
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
             Text("Estado de Trámites y Vistas", fontWeight = FontWeight.Bold, color = Color.White)
         }
 
