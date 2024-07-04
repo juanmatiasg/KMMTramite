@@ -10,21 +10,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
-import com.example.kmmtramites.android.ui.navigation.Destinations
-import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.android.ui.viewmodel.ViewViewModel
-import com.example.kmmtramites.domain.model.Tramite
 import com.example.kmmtramites.domain.model.View
 import org.koin.androidx.compose.koinViewModel
 
@@ -59,7 +56,6 @@ fun ViewsList(view: List<View>) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewCard(view: View) {
     Card(
@@ -76,12 +72,12 @@ fun ViewCard(view: View) {
 
             Row {
                 Text(
-                    text = "Inicio de Trámite: ",
+                    text = stringResource(id = R.string.inicioDeTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 Text(
-                    text = view.inicioTramite!!,
+                    text = view.inicioTramite,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -91,12 +87,12 @@ fun ViewCard(view: View) {
 
             Row {
                 Text(
-                    text = "Inicio de Vista: ",
+                    text = stringResource(id = R.string.inicioDeVista),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 Text(
-                    text = view.inicioVista!!,
+                    text = view.inicioVista,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -105,24 +101,24 @@ fun ViewCard(view: View) {
 
             Row {
                 Text(
-                    text = "Inspector: ",
+                    text = stringResource(id = R.string.inspector),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 Text(
-                    text = view.inspector!!,
+                    text = view.inspector,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
 
             Row {
                 Text(
-                    text = "Detalle: ",
+                    text = stringResource(id = R.string.detalleVista),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 Text(
-                    text = view.detalle!!,
+                    text = view.detalle,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

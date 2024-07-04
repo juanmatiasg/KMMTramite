@@ -1,5 +1,6 @@
 package com.example.kmmtramites.data.remote
 
+import com.example.kmmtramites.Config
 import com.example.kmmtramites.createHttpClient
 import com.example.kmmtramites.data.model.EntidadData
 import com.example.kmmtramites.data.model.EntidadResponse
@@ -17,7 +18,7 @@ class EntidadService:KtorApi() {
 
         try {
             val response = client.get {
-                pathUrl("/api/Entidad/BusquedaPorCorrelativo")
+                pathUrl(Config.ENDPOINT_ENTIDAD_CORRELATIVO)
                 parameter("correlativo", correlativo)
 
             }.body<EntidadResponse>()
@@ -43,7 +44,7 @@ class EntidadService:KtorApi() {
 
         try {
             val response = client.get {
-                pathUrl("/api/Entidad/BusquedaporTramite")
+                pathUrl(Config.ENDPOINT_ENTIDAD_TRAMITE)
                 parameter("tramite", tramite)
 
             }.body<EntidadResponse>()
@@ -61,7 +62,6 @@ class EntidadService:KtorApi() {
             client.close()
         }
     }
-
 
 
     private fun EntidadData.toDomain(): Entidad {

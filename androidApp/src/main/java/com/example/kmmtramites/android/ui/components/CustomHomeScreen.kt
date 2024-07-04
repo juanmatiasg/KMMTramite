@@ -86,7 +86,6 @@ fun CustomHomeScreen(
         }
 
 
-
         SearchComponent(navController)
 
     }

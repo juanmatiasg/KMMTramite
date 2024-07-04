@@ -1,11 +1,15 @@
 package com.example.kmmtramites.android.ui.screen
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,9 +23,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
 import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.components.WarningDialog
@@ -43,7 +49,7 @@ fun StepOneScreen(navController: NavController, numero: String?, searchOption: S
     var showDialog by remember { mutableStateOf(false) }
 
 
-    WarningDialog(showDialog = showDialog, errorMessage = "Entidad no encontrada" ?: "") {
+    WarningDialog(showDialog = showDialog, errorMessage = stringResource(id = R.string.warningMessageEntidadNoEncontrada)) {
         viewModel.clearError()
         navController.popBackStack()  // Volver a la pantalla anterior
     }
@@ -78,70 +84,72 @@ fun StepOneScreen(navController: NavController, numero: String?, searchOption: S
 
 @Composable
 fun Sociedades(entidad: Entidad, navController: NavController) {
-    SociedadeseCard(entidad, navController)
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        item {
+            SociedadeseCard(entidad, navController)
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SociedadeseCard(entidad: Entidad, navControler: NavController) {
-
+fun SociedadeseCard(entidad: Entidad, navController: NavController) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = { navControler.navigate(Destinations.StepTwoScreen.createRoute(entidad.correlativo)) }
+        onClick = { navController.navigate(Destinations.StepTwoScreen.createRoute(entidad.correlativo)) }
     ) {
-
         Column(
             modifier = Modifier
                 .padding(16.dp)
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Razón Social: ",
+                    text = stringResource(id = R.string.razonSocial),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
-
                 Text(
-                    text = entidad.razonSocial ?: "",
+                    text = entidad.razonSocial,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Tipo Societario: ",
+                    text = stringResource(id = R.string.tipoSocietario),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 Text(
-                    text = entidad.tipoSocietario ?: "",
+                    text = entidad.tipoSocietario,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Correlativo: ",
+                    text = stringResource(id = R.string.correlativo),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
-
                 Text(
-                    text = entidad.correlativo ?: "",
+                    text = entidad.correlativo,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-            Spacer(modifier = Modifier.height(8.dp))
 
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }

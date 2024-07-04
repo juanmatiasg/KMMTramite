@@ -1,5 +1,6 @@
 package com.example.kmmtramites.data.remote
 
+import com.example.kmmtramites.Config
 import com.example.kmmtramites.createHttpClient
 import com.example.kmmtramites.data.model.TramiteData
 import com.example.kmmtramites.data.model.TramiteResponse
@@ -13,24 +14,14 @@ import io.ktor.client.request.parameter
 class TramiteService : KtorApi() {
     suspend fun getAllTramite(correlativo: String): List<Tramite> {
 
-        var client = createHttpClient()
+        val client = createHttpClient()
 
         try {
             val response = client.get {
-                pathUrl("/api/Tramite/TramitesPorCorrelativo")
+                pathUrl(Config.ENDPOINT_TRAMITE)
                 parameter("correlativo", correlativo)
 
             }.body<TramiteResponse>()
-
-
-           val responseBody = client.get {
-                pathUrl("/api/Tramite/TramitesPorCorrelativo")
-                parameter("correlativo", correlativo)
-
-            }.body<String>()
-
-            println(responseBody)
-
 
             return response.data.map { it.toDomain() }
 

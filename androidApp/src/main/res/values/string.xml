@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Entidad-->
+    <string name="razonSocial">Razón Social: </string>
+    <string name="tipoSocietario">Tipo Societario: </string>
+    <string name="correlativo">Correlativo: </string>
+    <string name="errorMessageNotTramite">La sociedad seleccionada no tiene trámites.</string>
+    <string name="warningMessageEntidadNoEncontrada">Entidad no encontrada</string>
+
+    <!--Tramite-->
+    <string name="nroTramite">Nro. Trámite: </string>
+    <string name="descripcionTramite">Descripción: </string>
+    <string name="destinoActualTramite">Destino: </string>
+    <string name="fechaInicioTramite">Fecha Inicio Trámite : </string>
+    <string name="fechaDestinoActualTramite">Fecha Destino Actual: </string>
+    <string name="verVistaTramite">Ver Vista: </string>
+    <string name="vistaDisponible">Disponible</string>
+    <string name="vistaNoDisponible">No Disponible</string>
+
+    <!--Vista-->
+    <string name="inicioDeTramite">Inicio de Trámite: </string>
+    <string name="inicioDeVista">Inicio de Vista: </string>
+    <string name="inspector">Inspector: </string>
+    <string name="detalleVista">"Detalle: "</string>
+
+    <!--Util-->
+    <string name="formatDate">dd/MM/yyyy</string>
+    <string name="stringEmpty" />
+    <string name="logo">Logo</string>
+
+    <!--Destinations-->
+    <string name="destinationHome">homeScreen</string>
+
+
+</resources>

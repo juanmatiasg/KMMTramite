@@ -1,5 +1,6 @@
 package com.example.kmmtramites.data.remote
 
+import com.example.kmmtramites.Config
 import com.example.kmmtramites.createHttpClient
 import com.example.kmmtramites.data.model.ViewData
 import com.example.kmmtramites.data.model.ViewResponse
@@ -13,13 +14,11 @@ import io.ktor.client.request.parameter
 class ViewService:KtorApi() {
     suspend fun getAllView(correlativo: String, tramite: String): List<View> {
 
-        var client = createHttpClient()
+        val client = createHttpClient()
 
         try {
             val response = client.get {
-                pathUrl(
-                    "/api/Vista/VistasPorCorrelativoYNroTramite"
-                )
+                pathUrl(Config.ENDPOINT_VIEW)
                 parameter ("correlativo", correlativo)
                 parameter("tramite", tramite)
 

@@ -9,7 +9,6 @@ android {
     defaultConfig {
         applicationId = "com.example.kmmtramites.android"
         minSdk = 30
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
     }
@@ -45,7 +44,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
-    var lifecycle_version = "2.8.2"
+
+    val lifecycle_version = "2.8.2"
 
 
     // ViewModel

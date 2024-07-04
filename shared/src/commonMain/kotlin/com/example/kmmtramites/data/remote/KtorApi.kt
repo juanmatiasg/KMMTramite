@@ -1,5 +1,6 @@
 package com.example.kmmtramites.data.remote
 
+import com.example.kmmtramites.Config
 import com.example.kmmtramites.initLogger
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
@@ -22,11 +23,9 @@ import kotlinx.serialization.json.Json
 
 abstract class KtorApi {
 
-    private val BASE_URL = "https://10.0.2.2:7044"
-
     fun HttpRequestBuilder.pathUrl(path: String) {
         url {
-            takeFrom(BASE_URL)
+            takeFrom(Config.BASE_URL)
             path(path)
             accept(ContentType.Application.Json)
         }

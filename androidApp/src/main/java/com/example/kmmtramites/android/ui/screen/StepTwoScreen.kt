@@ -21,20 +21,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
-import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.components.WarningDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
-import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
 import com.example.kmmtramites.android.ui.viewmodel.TramiteViewModel
 import com.example.kmmtramites.domain.model.Tramite
-import com.example.kmmtramites.domain.model.View
 import org.koin.androidx.compose.koinViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -51,7 +48,7 @@ fun StepTwoScreen(navController: NavController, numero: String?) {
     var showDialog by remember { mutableStateOf(false) }
 
 
-    WarningDialog(showDialog = showDialog, errorMessage = "La sociedad seleccionada no tiene trámites." ?: "") {
+    WarningDialog(showDialog = showDialog, errorMessage = stringResource(id = R.string.errorMessageNotTramite)) {
         viewModel.clearError()
         navController.popBackStack()  // Volver a la pantalla anterior
     }
@@ -64,9 +61,8 @@ fun StepTwoScreen(navController: NavController, numero: String?) {
             showDialog = true
         } else {
             showDialog = false
-            tramites.value?.let {
-                TramiteList(tramites.value,numero!!,navController)
-            }
+            TramiteList(tramites.value,numero!!,navController)
+
         }
     }
     DisposableEffect(Unit) {
@@ -89,7 +85,7 @@ fun TramiteList(tramite: List<Tramite>,correlativo: String, navController: NavCo
 fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavController) {
 
     val inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
-    val outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    val outputFormatter = DateTimeFormatter.ofPattern(stringResource(id = R.string.formatDate))
 
 
     Card(
@@ -108,11 +104,11 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
         ) {
             Row {
                 Text(
-                    text = "Nro. Trámite: ",
+                    text = stringResource(id = R.string.nroTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = tramite.numero?:"",
+                    text = tramite.numero,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -120,11 +116,11 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
             Spacer(modifier = Modifier.height(8.dp))
             Row {
                 Text(
-                    text = "Descripción: ",
+                    text = stringResource(id = R.string.descripcionTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = tramite.descripcion?:"",
+                    text = tramite.descripcion,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -134,11 +130,11 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
 
             Row {
                 Text(
-                    text = "Destino: ",
+                    text = stringResource(id = R.string.destinoActualTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = tramite.destinoActual.toString()?:"",
+                    text = tramite.destinoActual,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -147,7 +143,7 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
 
             Row {
                 Text(
-                    text = "Fecha Inicio Trámite : ",
+                    text = stringResource(id = R.string.fechaInicioTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
@@ -161,7 +157,7 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
 
             Row{
                 Text(
-                    text = "Fecha Destino Actual: ",
+                    text = stringResource(id = R.string.fechaDestinoActualTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
@@ -174,20 +170,20 @@ fun TramiteCard(tramite: Tramite,correlativo:String, navController: NavControlle
 
             Row {
                 Text(
-                    text = "Ver Vista: ",
+                    text = stringResource(id = R.string.verVistaTramite),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                 )
 
                 if(tramite.tieneVista) {
                     Text(
-                        text = "Disponible" ?: "",
+                        text = stringResource(id = R.string.vistaDisponible),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colorResource(id = R.color.Green)
                     )
                 }
                 else {
                     Text(
-                        text = "No Disponible" ?: "",
+                        text = stringResource(id = R.string.vistaNoDisponible),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colorResource(id = R.color.Red)
                     )

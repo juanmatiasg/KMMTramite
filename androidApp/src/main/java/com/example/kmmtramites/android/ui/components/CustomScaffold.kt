@@ -2,6 +2,7 @@ package com.example.kmmtramites.android.ui.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,7 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
     val currentRoute = navBackStackEntry?.destination?.route
     val showContent = currentRoute != Destinations.HomeScreen.route
 
-     val title = when (currentRoute) {
+    val title = when (currentRoute) {
         Destinations.HomeScreen.route -> ""
         Destinations.StepOneScreen.route -> "Listado de Sociedades"
         Destinations.StepTwoScreen.route -> "Listado de Trámites"
@@ -48,7 +49,9 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
     }
     Scaffold(
         topBar = {
-            CustomTopAppBar(navController = navController,title = title, date = date, showContent = showContent)
+            if (showContent) {
+                CustomTopAppBar(navController = navController, title = title, date = date, showContent = showContent)
+            }
         },
 
         bottomBar = {
@@ -59,12 +62,12 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
-            ) {
+        ) {
             if(showContent) {
                 Divider(
                     color = Color.Yellow,
                     thickness = 2.dp
-                ) // Divider con color amarillo y grosor de 2dp
+                )
             }
             content()
         }
