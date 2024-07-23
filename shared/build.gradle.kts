@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -15,17 +16,17 @@ kotlin {
 
 
     
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
+   /* listOf(
+        //iosX64(),
+        //iosArm64(),
+        //iosSimulatorArm64()
 
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
         }
-    }
+    }*/
 
     sourceSets {
         val ktor_version="2.0.0"

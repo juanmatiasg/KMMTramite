@@ -1,7 +1,6 @@
 package com.example.kmmtramites.data.remote
 
 import com.example.kmmtramites.Config
-import com.example.kmmtramites.createHttpClient
 import com.example.kmmtramites.data.model.EntidadData
 import com.example.kmmtramites.data.model.EntidadResponse
 import com.example.kmmtramites.domain.model.Entidad
@@ -13,8 +12,6 @@ import io.ktor.client.request.parameter
 
 class EntidadService:KtorApi() {
     suspend fun findForCorrelativo(correlativo: String): Entidad {
-
-        var client = createHttpClient()
 
         try {
             val response = client.get {
@@ -33,14 +30,12 @@ class EntidadService:KtorApi() {
             Napier.e("Request failed with HttpRequestTimeoutException", e)
             throw e
         }
-        finally {
-            client.close()
-        }
+
     }
 
     suspend fun findForTramite(tramite: String): Entidad {
 
-        var client = createHttpClient()
+
 
         try {
             val response = client.get {
@@ -58,9 +53,7 @@ class EntidadService:KtorApi() {
             Napier.e("Request failed with HttpRequestTimeoutException", e)
             throw e
         }
-        finally {
-            client.close()
-        }
+
     }
 
 

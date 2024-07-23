@@ -31,5 +31,11 @@
     <!--Destinations-->
     <string name="destinationHome">homeScreen</string>
 
+    <!--Title TopBar-->
+    <string name="listadoDeSociedades">Listado de Sociedades</string>
+    <string name="listadoDeTramites">Listado de Trámites</string>
+    <string name="listadoDeVistas">Listado de Vistas</string>
+    <string name="vista">Vista</string>
+
 
 </resources>

@@ -1,6 +1,5 @@
 package com.example.kmmtramites.android.ui.screen
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
-import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.components.WarningDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
@@ -65,8 +61,6 @@ fun StepOneScreen(navController: NavController, numero: String?, searchOption: S
             entidad.value?.let {
                 Sociedades(it, navController)
             }
-
-
         }
     }
 

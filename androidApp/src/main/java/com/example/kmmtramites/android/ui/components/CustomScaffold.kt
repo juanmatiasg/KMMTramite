@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -40,12 +41,12 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
     val showContent = currentRoute != Destinations.HomeScreen.route
 
     val title = when (currentRoute) {
-        Destinations.HomeScreen.route -> ""
-        Destinations.StepOneScreen.route -> "Listado de Sociedades"
-        Destinations.StepTwoScreen.route -> "Listado de Trámites"
-        Destinations.StepThreeScreen.route -> "Listado de Vistas"
-        Destinations.StepFourScreen.route -> "Vista"
-        else -> ""
+        Destinations.HomeScreen.route -> stringResource(id = R.string.stringEmpty)
+        Destinations.StepOneScreen.route -> stringResource(id = R.string.listadoDeSociedades)
+        Destinations.StepTwoScreen.route -> stringResource(id = R.string.listadoDeTramites)
+        Destinations.StepThreeScreen.route -> stringResource(id = R.string.listadoDeVistas)
+        Destinations.StepFourScreen.route -> stringResource(id = R.string.vista)
+        else -> stringResource(id = R.string.stringEmpty)
     }
     Scaffold(
         topBar = {
@@ -73,4 +74,6 @@ fun CustomScaffold(navController: NavController, content: @Composable () -> Unit
         }
 
     }
+
+
 }

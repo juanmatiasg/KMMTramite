@@ -1,7 +1,6 @@
 package com.example.kmmtramites.data.remote
 
 import com.example.kmmtramites.Config
-import com.example.kmmtramites.createHttpClient
 import com.example.kmmtramites.data.model.ViewData
 import com.example.kmmtramites.data.model.ViewResponse
 import com.example.kmmtramites.domain.model.View
@@ -13,8 +12,6 @@ import io.ktor.client.request.parameter
 
 class ViewService:KtorApi() {
     suspend fun getAllView(correlativo: String, tramite: String): List<View> {
-
-        val client = createHttpClient()
 
         try {
             val response = client.get {
@@ -33,8 +30,6 @@ class ViewService:KtorApi() {
         } catch (e: HttpRequestTimeoutException) {
             Napier.e("Request failed with HttpRequestTimeoutException", e)
             throw e
-        } finally {
-            client.close()
         }
     }
 
