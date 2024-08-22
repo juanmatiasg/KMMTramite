@@ -3,7 +3,9 @@ package com.example.kmmtramites
 object Config {
 
     //Base URL
-    const val BASE_URL = "https://10.0.2.2:7044"
+    const val BASE_URL = "http://10.2.27.112:8001" //Emulator
+    //const val BASE_URL = "http://appsdesa" //Remote IP
+
 
     //Endpoints Entidad
     const val ENDPOINT_ENTIDAD_TRAMITE = "/api/Entidad/BusquedaporTramite"

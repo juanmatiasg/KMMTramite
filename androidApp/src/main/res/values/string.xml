@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="error">Error.</string>
+
     <!--Entidad-->
     <string name="razonSocial">Razón Social: </string>
     <string name="tipoSocietario">Tipo Societario: </string>

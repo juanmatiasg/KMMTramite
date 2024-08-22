@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,10 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmmtramites.android.R
 import com.example.kmmtramites.android.ui.components.CenteredCircularProgressIndicator
+import com.example.kmmtramites.android.ui.components.ErrorDialog
 import com.example.kmmtramites.android.ui.components.WarningDialog
 import com.example.kmmtramites.android.ui.navigation.Destinations
 import com.example.kmmtramites.android.ui.viewmodel.EntidadViewModel
 import com.example.kmmtramites.domain.model.Entidad
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -65,14 +68,15 @@ fun StepOneScreen(navController: NavController, numero: String?, searchOption: S
     }
 
 
-    DisposableEffect(Unit) {
 
+
+    LaunchedEffect(Unit) {
         if (searchOption == "ByCorrelativeNumber") {
             viewModel.fetchEntidadForCorrelativo(numero!!)
         } else {
             viewModel.fetchEntidadForTramite(numero!!)
         }
-        onDispose { }
+
     }
 }
 

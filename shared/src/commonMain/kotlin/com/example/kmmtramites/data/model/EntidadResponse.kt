@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EntidadResponse(
-    val data: EntidadData,
+    val data: Data,
     val isSuccess:Boolean,
     val message:String
 )
